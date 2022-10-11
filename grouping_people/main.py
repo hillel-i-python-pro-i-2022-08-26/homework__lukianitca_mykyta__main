@@ -5,12 +5,13 @@ from typing import TypeAlias, TypedDict
 
 from faker import Faker
 
+T_HUMAN_NAME: TypeAlias = str
 T_GROUP_NAME: TypeAlias = str
 T_GROUP_NAMES: TypeAlias = list[T_GROUP_NAME]
 
 
 class Human(TypedDict):
-    name: str
+    name: T_HUMAN_NAME
     group: T_GROUP_NAME
 
 
@@ -58,7 +59,7 @@ class Record:
     def __init__(self):
         self._registry_dict: dict = {}
 
-    def add_group(self, group_name: str, group_members: list) -> None:
+    def add_group(self, group_name: T_GROUP_NAME, group_members: list[T_HUMAN_NAME]) -> None:
         group_info = {group_name: {"members": group_members, "members_count": len(group_members)}}
         self._registry_dict.update(group_info)
 
@@ -66,11 +67,14 @@ class Record:
         return self._registry_dict
 
 
-def parse_group_members(humans: list[dict]):
+T_RECORD: TypeAlias = Record
+
+
+def parse_group_members(humans: list[dict]) -> list[T_HUMAN_NAME]:
     return [human["name"] for human in humans]
 
 
-def organize_data(humans: T_HUMANS):
+def organize_data(humans: T_HUMANS) -> T_RECORD:
     """
     Organize data in way, useful for further processing.
     At this stage not allowed to make output string.
@@ -85,7 +89,7 @@ def organize_data(humans: T_HUMANS):
     return record
 
 
-def get_formatted_output(data) -> str:
+def get_formatted_output(data: T_RECORD) -> str:
     """
     Get output string. That can be used to print in console.
     """
