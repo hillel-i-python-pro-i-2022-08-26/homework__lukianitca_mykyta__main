@@ -58,6 +58,14 @@ class Record:
     def __init__(self):
         self._registry_dict: dict = {}
 
+    def add_group(self, group_name: str, group_members: list) -> None:
+        group_info = {group_name: {"members": group_members, "members_count": len(group_members)}}
+        self._registry_dict.update(group_info)
+
+
+def parse_group_members(humans: list[dict]):
+    return [human["name"] for human in humans]
+
 
 def organize_data(humans: T_HUMANS):
     """
@@ -67,6 +75,11 @@ def organize_data(humans: T_HUMANS):
     record = Record()
     humans.sort(key=lambda human: human["group"])
     grouped = groupby(humans, lambda obj: obj["group"])
+    for group_name, members in grouped:
+        group_members = parse_group_members(members)
+        record.add_group(group_name, group_members)
+
+    return record
 
 
 def get_formatted_output(data) -> str:
