@@ -89,11 +89,14 @@ def get_formatted_output(data) -> str:
     """
     Get output string. That can be used to print in console.
     """
-    message = ""
+    messages = []
     for group_name, info in data.get_groups().items():
-        message += f"Group name: {group_name}, members number: {info['members_count']}\n"
-        message += f"Members: {', '.join(info['members'])}\n\n"
-    return message
+        one_group = [
+            f"Group name: {group_name}, members number: {info['members_count']}",
+            f"Members: {', '.join(info['members'])}\n",
+        ]
+        messages += one_group
+    return "\n".join(messages)
 
 
 def main():
