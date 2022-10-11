@@ -1,5 +1,6 @@
 import random
 from dataclasses import dataclass, field
+from itertools import groupby
 from typing import TypeAlias, TypedDict
 
 from faker import Faker
@@ -53,12 +54,19 @@ class DataProvider:
         return self._generate_humans(groups=_groups, amount_of_humans=amount_of_humans)
 
 
+class Record:
+    def __init__(self):
+        self._registry_dict: dict = {}
+
+
 def organize_data(humans: T_HUMANS):
     """
     Organize data in way, useful for further processing.
     At this stage not allowed to make output string.
     """
-    ...
+    record = Record()
+    humans.sort(key=lambda human: human["group"])
+    grouped = groupby(humans, lambda obj: obj["group"])
 
 
 def get_formatted_output(data) -> str:
