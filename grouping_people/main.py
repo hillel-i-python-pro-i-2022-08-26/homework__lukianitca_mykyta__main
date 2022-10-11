@@ -62,6 +62,9 @@ class Record:
         group_info = {group_name: {"members": group_members, "members_count": len(group_members)}}
         self._registry_dict.update(group_info)
 
+    def get_groups(self) -> dict:
+        return self._registry_dict
+
 
 def parse_group_members(humans: list[dict]):
     return [human["name"] for human in humans]
@@ -86,7 +89,11 @@ def get_formatted_output(data) -> str:
     """
     Get output string. That can be used to print in console.
     """
-    ...
+    message = ""
+    for group_name, info in data.get_groups().items():
+        message += f"Group name: {group_name}, members number: {info['members_count']}\n"
+        message += f"Members: {', '.join(info['members'])}\n\n"
+    return message
 
 
 def main():
