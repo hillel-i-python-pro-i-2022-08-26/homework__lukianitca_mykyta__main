@@ -1,8 +1,10 @@
 class Session:
     def __init__(self, players_list=None):
-        self.game_data = {"counter": 0,
-                          "players_list": {key.name: [] for key in players_list},
-                          "all_words": []}
+        self.game_data = {
+            "counter": 0,
+            "players_list": {key.name: [] for key in players_list},
+            "all_words": [],
+        }
 
     def register_player_step(self, player_name: str, word: str):
         self.game_data["counter"] += 1
@@ -69,8 +71,8 @@ def players() -> list:
 
 
 def circle(session: Session):
-    pl_list = list(session.game_data['players_list'].keys())
-    word_list = session.game_data['all_words']
+    pl_list = list(session.game_data["players_list"].keys())
+    word_list = session.game_data["all_words"]
     for player in pl_list:
         word = input(f"{player}, input word: ").lower()
         if word == "stop game":
@@ -105,5 +107,5 @@ def game():
             return
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     game()
