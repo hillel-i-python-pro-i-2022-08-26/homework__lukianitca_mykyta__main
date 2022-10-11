@@ -12,13 +12,13 @@ RUN useradd --system ${USER} && \
 
 RUN apt update && apt upgrade -y
 
-COPY --chown = ${USER} requirements.txt requirements.txt
+COPY --chown=${USER} requirements.txt requirements.txt
 
 RUN pip install --upgrade pip && \
     pip install --requirement requirements.txt
 
-COPY --chown=${USER} ./grouping_people
+COPY --chown=${USER} ./grouping_people grouping_people
 
 USER ${USER}
 
-ENTRYPOINT ["python", "main.py"]
+ENTRYPOINT ["python", "grouping_people/main.py"]
