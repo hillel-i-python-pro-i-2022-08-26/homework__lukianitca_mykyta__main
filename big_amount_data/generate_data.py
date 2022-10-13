@@ -29,6 +29,11 @@ def generate_users(amount: int) -> Iterator[UserProtocol]:
     unique_logins: set[T_LOGIN] = set()
     while len(unique_logins) < amount:
         login = f"{faker.user_name()}_{faker.last_name().lower()}{random.randint(0, 1001)}"
+        if login in unique_logins:
+            continue
+        unique_logins.add(login)
+        password = faker.password()
+        yield User(login, password)
 
 
 def main():
