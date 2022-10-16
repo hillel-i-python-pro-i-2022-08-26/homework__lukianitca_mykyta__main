@@ -1,4 +1,3 @@
-import logging
 import random
 from typing import Iterator, Protocol, TypeAlias, NamedTuple
 
@@ -37,9 +36,10 @@ def generate_users(amount: int) -> Iterator[UserProtocol]:
 
 
 def main():
-    amount = 1000
+    amount = 100000
     users = list(generate_users(amount=amount))
     validate(users=users, amount=amount)
+    print("success")
 
 
 if __name__ == "__main__":
