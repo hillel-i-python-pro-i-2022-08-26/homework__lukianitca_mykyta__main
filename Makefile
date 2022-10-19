@@ -1,6 +1,10 @@
-.PHONY: homework-i-run
-homework-i-run:
+.PHONY: homework-group-people-i-run
+homework-group-people-i-run:
 	@python grouping_people/main.py
+
+.PHONY: homework-generate-data-i-run
+homework-generate-data-i-run:
+	@python big_amount_data/generate_data.py
 
 .PHONY: init-dev
 init-dev:
